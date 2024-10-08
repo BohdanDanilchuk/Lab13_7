@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Гра у вгадування числа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Гра у вгадування числа</h1>
+    <p>Вгадайте число від 1 до 10! У вас є 3 спроби.</p>
+    <input type="number" id="userGuess" min="1" max="10">
+    <button onclick="checkGuess()">Вгадати</button>
+    <div class="message" id="message"></div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 10) + 1;
+        let attempts = 3;
+
+        function checkGuess() {
+            let userGuess = parseInt(document.getElementById("userGuess").value);
+            let message = document.getElementById("message");
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {
+                message.innerHTML = "Будь ласка, введіть число від 1 до 10.";
+                return;
+            }
+
+            attempts--;
+
+            if (userGuess === randomNumber) {
+                message.innerHTML = "Вітаю! Ви вгадали число " + randomNumber + "!";
+            } else if (attempts === 0) {
+                message.innerHTML = "Ви вичерпали всі спроби! Загадане число було " + randomNumber + ".";
+            } else {
+                let hint = userGuess < randomNumber ? "Більше!" : "Менше!";
+                message.innerHTML = hint + " У вас залишилося спроб: " + attempts + ".";
+            }
+
+            document.getElementById("userGuess").value = "";
+        }
+    </script>
+</body>
+</html>
